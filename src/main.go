@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -12,13 +12,12 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	port := ":8000"
-	if len(os.Args) > 1 {
-		port = fmt.Sprintf(":%v", os.Args[1])
-	}
+	portPtr := flag.Int("port", 80, "server port")
+	flag.Parse()
 
+	port := fmt.Sprintf(":%v", *portPtr)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hello)
-	fmt.Printf("Started server at http://localhost%v.\n", port)
+	fmt.Printf("Started server at http://localhost%v\n", port)
 	http.ListenAndServe(port, mux)
 }

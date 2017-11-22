@@ -1,9 +1,9 @@
 version: '3'
 services:
   web:
-    command: go run main.go 80
     build: .
+    command: go run main.go -port=80    
     ports:
-     - "80:80"
+     - 80:80
     volumes:
      - ./src:/app/src
