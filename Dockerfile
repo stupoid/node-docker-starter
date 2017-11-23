@@ -1,2 +1,7 @@
-FROM golang:1.9-alpine
-WORKDIR /app/src
+FROM node:9-alpine
+
+WORKDIR /usr/src/app
+
+COPY ./app/package*.json /usr/src/app
+
+RUN npm install
